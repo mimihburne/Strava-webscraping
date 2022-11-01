@@ -39,19 +39,27 @@ for col in cat_cols:
     #prints each column the value counts of entries
 
 #elapsed time is in seconds
-#establish units that are being used
 
 #should dates be categorical or numerical - currently categorical but would be good to convert so they can be compared
 #convert to datetime type
 #parse format in pandas
 #pandas.to_datetime()
 #activities['date_local'] = format = current format
-
 #to_timedelta
 #group by month/year to see trends
 
 #combine with holly data/other csv files
+#manually input splits?
 
-#upload to github
+#attribute information- establish units that are being used
 
-#data visualisations
+#add a readme
+
+#how to deal with zeros in data?
+#value to replace zeros with depends on distribution
+
+#data visuals:
+#line graph of UT2 against average HR and max HR on the same graph
+#against date
+
+#put into functions

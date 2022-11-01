@@ -49,6 +49,7 @@ activities = pd.DataFrame(
         "total_elevation_gain",
         "kudos_count",
         "average_speed",
+        "max_speed",
         "average_heartrate",
         "max_heartrate",
         "average_cadence"
@@ -75,6 +76,7 @@ while True:
         activities.loc[x + (page - 1) * 200, 'total_elevation_gain'] = r[x]['total_elevation_gain']
         activities.loc[x + (page - 1) * 200, 'kudos_count'] = r[x]['kudos_count']
         activities.loc[x + (page - 1) * 200, 'average_speed'] = r[x]['average_speed']
+        activities.loc[x + (page - 1) * 200, 'max_speed'] = r[x]['max_speed']
         try:
             activities.loc[x + (page - 1) * 200, 'average_heartrate'] = r[x]['average_heartrate']
             activities.loc[x + (page - 1) * 200, 'max_heartrate'] = r[x]['max_heartrate']
