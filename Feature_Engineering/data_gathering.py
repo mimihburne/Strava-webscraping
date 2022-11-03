@@ -1,9 +1,16 @@
 import pandas as pd
 import numpy as np
 
-strava_activities1 = pd.read_csv('strava_activities.csv')
+strava_activities1 = pd.read_csv('../Webscraping/strava_activities.csv')
 
-#print(strava_activities1.head(3))
+del strava_activities1['Unnamed: 0']
+del strava_activities1['id']
+
+strava_activities1["Date"]=pd.to_datetime(strava_activities1["start_date_local"]).dt.date
+strava_activities1["Time"]=pd.to_datetime(strava_activities1["start_date_local"]).dt.time
+
+strava_activities1.index = strava_activities1.start_date_local
+#3 columns, date,time and datetime. df indexed by datetime
 
 #strava_activities1.info()
 #no null values
@@ -13,12 +20,13 @@ strava_activities1 = pd.read_csv('strava_activities.csv')
 #select rows where average cadence is null/zero
 
 #don't need to merge tables as only one
+#print(strava_activities1['max_heartrate'].describe())
 
 #print(strava_activities1['type'].dropna().unique()) #all unique sports
 
 #print(strava_activities1.type.value_counts()) #number of all sports
 
-#print(strava_activities1.dtypes) #feature datatypes
+print(strava_activities1.dtypes) #feature datatypes
 
 def find_column_types(df):
     #identifies categorical, boolean and numerical values
@@ -31,35 +39,21 @@ def find_column_types(df):
 
 cat_cols, bool_cols, num_cols = find_column_types(strava_activities1)
 
-#print(cat_cols)
-#print(num_cols)
-
-for col in cat_cols:
-    print("{col}:{value}".format(col=col, value=pd.value_counts(strava_activities1[col],dropna=False)))
+#for col in cat_cols:
+#    print("{col}:{value}".format(col=col, value=pd.value_counts(strava_activities1[col],dropna=False)))
     #prints each column the value counts of entries
 
-#elapsed time is in seconds
-
-#should dates be categorical or numerical - currently categorical but would be good to convert so they can be compared
-#convert to datetime type
-#parse format in pandas
-#pandas.to_datetime()
-#activities['date_local'] = format = current format
-#to_timedelta
-#group by month/year to see trends
-
-#combine with holly data/other csv files
-#manually input splits?
-
-#attribute information- establish units that are being used
+#----------------------------------------
+#input splits - image reader
 
 #add a readme
 
+#if rowing speed =0,is erg, if not, is water
+#write a data dictionary with units
+#elapsed time is in seconds
+#attribute information- establish units that are being used
+
 #how to deal with zeros in data?
 #value to replace zeros with depends on distribution
-
-#data visuals:
-#line graph of UT2 against average HR and max HR on the same graph
-#against date
-
-#put into functions
+#significant correlation between heart rate and cadence because for pre-garmin runs, there was no HR or
+#cadence picked up so many activities have (0, 0, 0) for these values
