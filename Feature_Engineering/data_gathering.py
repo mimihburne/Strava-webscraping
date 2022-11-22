@@ -60,3 +60,38 @@ def find_column_types(df):
 
 'Combining the 2'
 #1) combine all rows with duplicates with all columns
+pieces = {"x": strava_activities1, "y": form_activities1}
+combine_all = pd.concat(pieces)
+combine_all = combine_all.sort_values(by=["start_date_local","time_of_day"], ascending=False)
+del combine_all['Unnamed: 10']
+del combine_all['Unnamed: 11']
+
+combine_all.to_csv('combined_all_activities.csv')
+
+'Test run with smaller dataset'
+#combine rows: if one is x and one is y, date = date (and type = type/name = name)
+#first step: if date = date, and type = rowing, add average split from y to x
+rowing_activities = combine_all.loc[combine_all['type'] == 'Rowing']
+ut2_rowing_activities = rowing_activities.loc[rowing_activities['name']=='UT2']
+'''
+identifiers = ['start_date_local', 'type']#, x!=y]#is a list of column names by which I want to group
+other_columns = ['name', 'distance', 'elapsed_time', 'moving_time', 'total_elevation_gain', 'kudos_count', 'average_speed', 'max_speed', 'average_heartrate', 'max_heartrate', 'average_cadence', 'time_of_day', 'average_split']#is the columns without the identifier columns
+filledgroups = ut2_rowing_activities.groupby(identifiers)[other_columns].apply(lambda x: x.ffill().bfill())
+#I then replace said columns in the original dataframe df
+ut2_rowing_activities.loc[:,other_columns] = filledgroups.loc[:,other_columns]
+ut2_rowing_activities.drop_duplicates(inplace=True)
+ut2_rowing_activities = ut2_rowing_activities.reset_index(drop=True)
+'''
+# list2 = []
+# for i in ut2_rowing_activities:
+#     for j in ut2_rowing_activities:
+#         if ut2_rowing_activities['start_date_local'][i] == ut2_rowing_activities['start_date_local'][j]:
+#             list2.append(ut2_rowing_activities[j])
+# #print(ut2_rowing_activities.loc[ut2_rowing_activities['start_date_local'] == ut2_rowing_activities['start_date_local']]) #row where one column equals certain value
+# print(list2)
+
+df2=df.loc[(df['Discount'] >= 1000) & (df['Discount'] <= 2000)]
+
+
+
+
